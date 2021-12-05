@@ -1,0 +1,106 @@
+﻿<style>
+.fit {
+    white-space: nowrap;
+    width: 1%;
+}
+.padding-0{
+    padding: right 0px;
+    padding:left 0px;
+}
+</style>
+<div class="container-fluid p-3 bg-light">
+<h1>Hi {{currentUser.firstName}} {{currentUser.lastName}}!</h1>
+<p>Your email address: {{currentUser.emaailAddress}}</p>
+</div>
+<div *ngIf="loading" style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100%;
+    height: 100%;">
+  
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      </div>
+</div>
+<div *ngIf="!loading">
+  <div class="table-responsive">
+  <div class="container-fluid table-responsive fixed-table-body padding-0" style="overflow-x:scroll;">
+      <table class="table table-striped table-borderless fit caption-top" style="font-size: 12px;" >
+        <caption>
+          <strong style="font-size: 20px;;">DATA PULL FOR HH #10</strong>
+          <br>
+          <strong style="font-size: 15px;;">Total transactions: {{allTransactions.length}}</strong>
+          <!-- Pagination-->
+          <nav>
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination justify-content-center">
+                <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+                    <a (click)="setPage(1)" class="page-link">First</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}" class="page-item">
+                    <a (click)="setPage(pager.currentPage - 1)" class="page-link">Previous</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}" class="page-item">
+                    <a (click)="setPage(page)" class="page-link">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+                    <a (click)="setPage(pager.currentPage + 1)" class="page-link">Next</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" class="page-item">
+                    <a (click)="setPage(pager.totalPages)" class="page-link">Last</a>
+                </li>
+            </ul>
+          </nav>
+        </caption>
+        <thead class="table-dark">
+            <tr>
+              <th>Hshd_num</th>
+              <th>Basket_num</th>
+              <th>Date</th>
+              <th>Product_num</th>
+              <th>Department</th>
+              <th>Comodity</th>
+              <th>Spend</th>
+              <th>Units</th>
+              <th>Store_region</th>
+              <th>Week_num</th>
+              <th>Loyality_flag</th>
+              <th>Age_range</th>
+              <th>Marital_status</th>
+              <th>Income_range</th>
+              <th>Homeowner_desc</th>
+              <th>Hshd_composition</th>
+              <th>Hshd_size</th>
+              <th>Children</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transaction of transactions">
+            <td>{{ transaction.households.hshd_Num }}</td>
+            <td>{{ transaction.basket_num }}</td>
+            <td>{{ transaction.purchase }}</td>
+            <td>{{ transaction.product_num }}</td>
+            <td>{{ transaction.products.department }}</td> 
+            <td>{{ transaction.products.comodity }}</td>
+            <td>{{ transaction.spend }}</td>
+            <td>{{ transaction.units }}</td>
+            <td>{{ transaction.stock_r }}</td>
+            <td>{{ transaction.week_num }}</td>
+            <td>{{ transaction.households.loyality_flag }}</td>
+            <td>{{ transaction.households.age_range }}</td>
+            <td>{{ transaction.households.marital_status }}</td>
+            <td>{{ transaction.households.income_range }}</td>
+            <td>{{ transaction.households.homeowner_desc }}</td>
+            <td>{{ transaction.households.hshd_composition }}</td>
+            <td>{{ transaction.households.hshd_size }}</td>
+            <td>{{ transaction.households.children }}</td> 
+          </tr>
+        </tbody>
+      </table>
+      <div class='empty-result' *ngIf="!transactions">
+          No result found.
+          </div>
+  </div>
+</div>
+</div>

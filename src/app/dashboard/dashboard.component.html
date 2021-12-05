@@ -1,0 +1,14 @@
+
+<div *ngIf="isLoading" style="
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+    width: 100%;
+    height: 100%;">
+  
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      </div>
+</div>
+<iframe (load)="disableLoadingTag()" name=iframe src="https://cloudcomputing.shinyapps.io/krogerRetailApp/" height="1500" width="100%" scrolling="no" noresize frameborder="0" onload="document.getElementById('spinner').style.display='none';"></iframe>
